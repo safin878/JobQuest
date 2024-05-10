@@ -1,0 +1,30 @@
+.button {
+  position: relative;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  padding: 0 10px;
+}
+.active {
+  color: #007bff; /* Example color */
+
+  padding: 7px;
+  border-radius: 10px;
+  border-bottom: 3px solid #6061d8;
+}
+.button:after {
+  content: "";
+  position: absolute;
+  background-color: #c683d7;
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -10px;
+  transition: 0.3s;
+}
+
+.button:hover:after {
+  width: 100%;
+}
