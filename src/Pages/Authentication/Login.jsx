@@ -1,6 +1,41 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { signIn, signInWithGoogle, user, loading } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.pathname || "/";
+  const navigate = useNavigate();
+  //Google login start
+  const handelGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+      // const { data } = await axios.post(
+      //   "http://localhost:9000/jwt",
+      //   {
+      //     email: result?.user?.email,
+      //   },
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      if (result.user) {
+        Swal.fire({
+          title: "Login Successful !",
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  //Google Login End
   return (
     <div>
       <section className=" min-h-screen flex items-center justify-center  ">
@@ -47,7 +82,10 @@ const Login = () => {
               <p className="text-center text-sm">OR</p>
               <hr className="border-gray-400" />
             </div>
-            <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]">
+            <button
+              onClick={handelGoogle}
+              className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]"
+            >
               <svg
                 className="mr-3"
                 xmlns="http://www.w3.org/2000/svg"

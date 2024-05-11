@@ -1,10 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "./../../Provider/AuthProvider";
+
 import "./Navbar.css";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const navigat = useNavigate();
+
+  //Logout With Navigate  start
+
+  const logout = () => {
+    logOut();
+    Swal.fire({
+      title: "Logout Successful !",
+      text: "You clicked the button!",
+      icon: "success",
+    });
+    navigat("/");
+  };
+
+  //Logout With Navigate  End
+
   //them Changer start
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -124,16 +144,86 @@ const Navbar = () => {
             </label>
           </div>
 
-          <Link to="/login">
-            <button className="relative py-2 px-8 text-white bg-color-1   text-base font-bold   overflow-hidden   rounded-full transition-all duration-400 ease-in-out hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-color-2 before:to-color-3 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-full hover:before:left-0">
-              Login
-            </button>
-          </Link>
-          <Link to="/register">
-            <button className="relative py-2 px-8 text-white bg-color-1   text-base font-bold   overflow-hidden   rounded-full transition-all duration-400 ease-in-out hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-color-2 before:to-color-3 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-full hover:before:left-0">
-              Register
-            </button>
-          </Link>
+          {!user && (
+            <div className="flex gap-3">
+              <Link to="/login">
+                <button className="relative py-2 px-8 text-white bg-color-1   text-base font-bold   overflow-hidden   rounded-full transition-all duration-400 ease-in-out hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-color-2 before:to-color-3 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-full hover:before:left-0">
+                  Login
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="relative py-2 px-8 text-white bg-color-1   text-base font-bold   overflow-hidden   rounded-full transition-all duration-400 ease-in-out hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-color-2 before:to-color-3 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-full hover:before:left-0">
+                  Register
+                </button>
+              </Link>
+            </div>
+          )}
+
+          {user && (
+            <div
+              className="dropdown dropdown-end z-50 tooltip tooltip-left"
+              data-tip={user?.displayName}
+            >
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    referrerPolicy="no-referrer"
+                    alt="User Profile Photo"
+                    src={user?.photoURL}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <Link to="/addJob">
+                  <li>
+                    <div className="justify-between">Add Job</div>
+                  </li>
+                </Link>
+                <li>
+                  <Link to="/postJobs">
+                    {" "}
+                    <div>My Posted Jobs</div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/myBids">
+                    <div>My Bids</div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/bidsReq">
+                    <div>Bid Requests</div>
+                  </Link>
+                </li>
+                <li className="mt-2">
+                  <button
+                    onClick={logout}
+                    className="group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32 hover:rounded-lg active:translate-x-1 active:translate-y-1"
+                  >
+                    <div className="flex items-center justify-center w-full transition-all duration-300 group-hover:justify-start group-hover:px-3">
+                      <svg
+                        className="w-4 h-4"
+                        viewBox="0 0 512 512"
+                        fill="white"
+                      >
+                        <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                      </svg>
+                    </div>
+                    <div className="absolute right-5 transform translate-x-full opacity-0 text-white text-lg font-semibold transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+                      Logout
+                    </div>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
