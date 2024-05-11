@@ -6,6 +6,7 @@ import Register from "./../Pages/Authentication/Register";
 import Alljobs from "./../Pages/AllJobs/Alljobs";
 import Blogs from "./../Pages/Blogs/Blogs";
 import Error from "../Components/Error/Error";
+import PublicRoute from "./PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login></Login>,
+        element: (
+          <PublicRoute>
+            <Login></Login>
+          </PublicRoute>
+        ),
       },
       {
         path: "/allJobs",
@@ -31,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Register></Register>,
+        element: (
+          <PublicRoute>
+            <Register></Register>
+          </PublicRoute>
+        ),
       },
     ],
   },

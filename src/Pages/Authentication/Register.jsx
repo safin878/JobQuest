@@ -1,6 +1,81 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Register = () => {
+  const { signInWithGoogle, loading, updateUserProfile, setUser, createUser } =
+    useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.pathname || "/";
+  const navigate = useNavigate();
+  //Google login start
+  const handelGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+      // const { data } = await axios.post(
+      //   "http://localhost:9000/jwt",
+      //   {
+      //     email: result?.user?.email,
+      //   },
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      if (result.user) {
+        Swal.fire({
+          title: "Register Successful !",
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+  //Google Login End
+
+  //Email Login Start
+
+  const handelReg = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log([name, photo, email, password]);
+    try {
+      const result = await createUser(email, password);
+      // const { data } = await axios.post(
+      //   "http://localhost:9000/jwt",
+      //   {
+      //     email: result?.user?.email,
+      //   },
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+
+      if (result.user) {
+        updateUserProfile(name, photo);
+        setUser({ ...result?.user, photoURL: photo, displayName: name });
+        Swal.fire({
+          title: "Register Successful !",
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  //Email Login End
+
   return (
     <div>
       <div>
@@ -15,7 +90,11 @@ const Register = () => {
               <p className="text-xs mt-4 text-[#002D74]">
                 If you are not a member, Please Register
               </p>
-              <form action="" className="grid grid-cols-2 gap-4">
+              <form
+                onSubmit={handelReg}
+                action=""
+                className="grid grid-cols-2 gap-4"
+              >
                 <input
                   className="p-2 mt-8 rounded-xl border"
                   type="text"
@@ -65,7 +144,10 @@ const Register = () => {
                 <p className="text-center text-sm">OR</p>
                 <hr className="border-gray-400" />
               </div>
-              <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]">
+              <button
+                onClick={handelGoogle}
+                className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]"
+              >
                 <svg
                   className="mr-3"
                   xmlns="http://www.w3.org/2000/svg"

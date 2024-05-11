@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { signIn, signInWithGoogle, user, loading } = useContext(AuthContext);
+  const { signIn, signInWithGoogle, loading } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.pathname || "/";
   const navigate = useNavigate();
@@ -34,8 +34,42 @@ const Login = () => {
       toast.error(error.message);
     }
   };
-
   //Google Login End
+
+  //Email sing in start
+
+  const handelSingIn = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    try {
+      const result = await signIn(email, password);
+      // const { data } = await axios.post(
+      //   "http://localhost:9000/jwt",
+      //   {
+      //     email: result?.user?.email,
+      //   },
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      // console.log(data);
+      if (result.user) {
+        Swal.fire({
+          title: "Login Successful !",
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  //Email sing in End
   return (
     <div>
       <section className=" min-h-screen flex items-center justify-center  ">
@@ -47,7 +81,11 @@ const Login = () => {
             <p className="text-xs mt-4 text-[#002D74]">
               If you are already a member, Easily log in
             </p>
-            <form action="" className="flex flex-col gap-4">
+            <form
+              onSubmit={handelSingIn}
+              action=""
+              className="flex flex-col gap-4"
+            >
               <input
                 className="p-2 mt-8 rounded-xl border"
                 type="email"
