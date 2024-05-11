@@ -2,6 +2,7 @@ import { useContext } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import regImg from "../../assets/Regisration.jpg";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const Register = () => {
@@ -135,7 +136,7 @@ const Register = () => {
                   placeholder="PhotoURL"
                 />
 
-                <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300 col-span-2">
+                <button className="bg-color-1 hover:bg-color-3 rounded-xl text-white py-2 hover:scale-105 duration-300 col-span-2">
                   Register
                 </button>
               </form>
@@ -180,7 +181,7 @@ const Register = () => {
                 <p>Do you have an account?</p>
                 <Link to="/login">
                   {" "}
-                  <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
+                  <button className="py-2 px-5 bg-color-1 hover:bg-color-3 text-white border rounded-xl hover:scale-110 duration-300">
                     Login
                   </button>
                 </Link>
@@ -188,10 +189,7 @@ const Register = () => {
             </div>
             {/* image */}
             <div className="md:block hidden w-1/2">
-              <img
-                className="rounded-2xl"
-                src="https://images.unsplash.com/photo-1616606103915-dea7be788566?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"
-              />
+              <img className="rounded-2xl" src={regImg} />
             </div>
           </div>
         </section>

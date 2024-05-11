@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
+import loginImg from "../../assets/loginImg.jpg";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
@@ -111,7 +112,7 @@ const Login = () => {
                   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                 </svg>
               </div>
-              <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300">
+              <button className="bg-color-1 rounded-xl text-white py-2 hover:bg-color-3 hover:scale-105 duration-300">
                 Login
               </button>
             </form>
@@ -156,7 +157,7 @@ const Login = () => {
               <p>Do not have an account?</p>
               <Link to="/register">
                 {" "}
-                <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
+                <button className="py-2 px-5 bg-color-1 text-white hover:bg-color-3 border rounded-xl hover:scale-110 duration-300">
                   Register
                 </button>
               </Link>
@@ -164,10 +165,7 @@ const Login = () => {
           </div>
           {/* image */}
           <div className="md:block hidden w-1/2">
-            <img
-              className="rounded-2xl"
-              src="https://images.unsplash.com/photo-1616606103915-dea7be788566?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"
-            />
+            <img className="rounded-2xl" src={loginImg} />
           </div>
         </div>
       </section>

@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const PublicRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
-  //   const location = useLocation();
+  const { user, loading } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   if (!user) {
@@ -12,14 +12,12 @@ const PublicRoute = ({ children }) => {
   }
 
   if (user) {
+    if (loading) {
+      return <p>Loading...</p>;
+    }
     return navigate("/");
   }
-  return (
-    <Navigate
-      to="/login"
-      //   state={{ pathname: location.pathname }}
-      replace={true}
-    />
-  );
+
+  return <Navigate to="/login" replace={true} />;
 };
 export default PublicRoute;

@@ -1,7 +1,12 @@
+import Banner from "../../Components/Banner/Banner";
+import JobCatagory from "../../Components/JobCatagory/JobCatagory";
+
 const Home = () => {
   return (
-    <div>
-      <h1>i am home</h1>
+    <div className="text-center">
+      <Banner></Banner>
+      <h1 className="text-6xl font-bold">Job by Category</h1>
+      <JobCatagory></JobCatagory>
     </div>
   );
 };
