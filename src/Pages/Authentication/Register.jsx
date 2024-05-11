@@ -95,7 +95,7 @@ const Register = () => {
                 <a href="#">Forgot your password?</a>
               </div>
               <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
-                <p>Do not have an account?</p>
+                <p>Do you have an account?</p>
                 <Link to="/login">
                   {" "}
                   <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
