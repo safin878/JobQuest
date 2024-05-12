@@ -1,12 +1,16 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Details = () => {
   const { user } = useContext(AuthContext);
   const job = useLoaderData();
+  const navigate = useNavigate();
   const {
     job_title,
 
@@ -19,7 +23,112 @@ const Details = () => {
     job_applicants,
   } = job || {};
 
-  console.log(job);
+  // const handelOpen = () => {
+  //   Swal.fire({
+  //     title: "Applied Job",
+  //     // input: "text",
+  //     html:
+  //       `<input id="name" class="swal2-input" placeholder="Username" value=${user?.displayName}>` +
+  //       `<input id="email" class="swal2-input" placeholder="Another Input" value=${user?.email}>` +
+  //       '<input id="Link" class="swal2-input" placeholder="Resume Link">',
+  //     inputAttributes: {
+  //       autocapitalize: "off",
+  //     },
+  //     showCancelButton: true,
+  //     confirmButtonText: "Submit",
+  //     showLoaderOnConfirm: true,
+  //     preConfirm: async (login) => {
+  //       try {
+  //         const githubUrl = `
+  //           https://api.github.com/users/${login}
+  //         `;
+  //         const response = await fetch(githubUrl);
+  //         if (!response.ok) {
+  //           return Swal.showValidationMessage(`
+  //             ${JSON.stringify(await response.json())}
+  //           `);
+  //         }
+  //         return response.json();
+  //       } catch (error) {
+  //         Swal.showValidationMessage(`
+  //           Request failed: ${error}
+  //         `);
+  //       }
+  //     },
+  //     allowOutsideClick: () => !Swal.isLoading(),
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire({
+  //         title: `${result.value.login}'s avatar`,
+  //         imageUrl: result.value.avatar_url,
+  //       });
+  //     }
+  //   });
+  // };
+
+  const handelOpen = () => {
+    Swal.fire({
+      title: "Applied Job",
+      html:
+        `<input id="name" class="swal2-input" placeholder="Username" value="${user?.displayName}">` +
+        `<input id="email" class="swal2-input" placeholder="Email" value="${user?.email}">` +
+        '<input id="link" class="swal2-input" placeholder="Resume Link">',
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Submit",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const link = document.getElementById("link").value;
+
+        const AppliedData = {
+          name,
+          email,
+          link,
+        };
+
+        // Here, you would send the data to your database.
+        // This is a placeholder for the actual database operation.
+        // Replace this with your database logic.
+        try {
+          // await sendDataToDatabase(name, email, link);
+          // console.log(name, email, link);
+
+          const { data } = await axios.post(
+            `${import.meta.env.VITE_API_URL}/AppliedJobs`,
+            AppliedData
+          );
+          console.log(data);
+          if (data.acknowledged) {
+            toast.success("Applied Successfully");
+            navigate("/AppliedJobs");
+          }
+
+          return { name, email, link }; // Returning the data for display
+        } catch (error) {
+          Swal.showValidationMessage(`Database operation failed: ${error}`);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // You can access the submitted data here
+        const { name, email, link } = result.value;
+        // For now, just showing the data
+        Swal.fire({
+          title: "Submitted Data",
+          html: `
+            <div>Name: ${name}</div>
+            <div>Email: ${email}</div>
+            <div>Link: ${link}</div>
+          `,
+        });
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col md:flex-row justify-around gap-5  items-center min-h-[calc(100vh-306px)] md:max-w-screen-xl mx-auto ">
@@ -60,7 +169,9 @@ const Details = () => {
             <p className="mt-6 text-lg font-bold text-gray-600 ">
               Salary Range: {salary_range}
             </p>
-            <button className="btn my-3">Apply Job</button>
+            <button onClick={handelOpen} className="btn my-3">
+              Apply Job
+            </button>
           </div>
         </div>
         <img className="w-96 border rounded-lg" src={picture_url} alt="" />
