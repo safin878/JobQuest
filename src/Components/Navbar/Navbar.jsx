@@ -187,19 +187,19 @@ const Navbar = () => {
                   </li>
                 </Link>
                 <li>
-                  <Link to="/postJobs">
+                  <Link to="/MyJobs">
                     {" "}
-                    <div>My Posted Jobs</div>
+                    <div>My Jobs</div>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/myBids">
-                    <div>My Bids</div>
+                  <Link to="/AppliedJobs">
+                    <div>Applied Jobs</div>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bidsReq">
-                    <div>Bid Requests</div>
+                  <Link to="/UserProfile">
+                    <div>User Profile</div>
                   </Link>
                 </li>
                 <li className="mt-2">

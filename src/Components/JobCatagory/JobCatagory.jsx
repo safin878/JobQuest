@@ -1,7 +1,19 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import JobCard from "../JobCard/JobCard";
 
 const JobCatagory = () => {
+  const [jobs, setJobs] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/AddJobs`);
+      setJobs(data);
+    };
+    getData();
+  }, []);
+
   return (
     <Tabs className="container mx-auto px-6 py-12">
       <TabList>
@@ -12,16 +24,40 @@ const JobCatagory = () => {
       </TabList>
 
       <TabPanel>
-        <h2>Any content 1</h2>
+        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {jobs
+            .filter((j) => j.job_category === "On Site")
+            .map((job) => (
+              <JobCard key={job._id} job={job}></JobCard>
+            ))}
+        </div>
       </TabPanel>
       <TabPanel>
-        <h2>Any content 2</h2>
+        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {jobs
+            .filter((j) => j.job_category === "Remote")
+            .map((job) => (
+              <JobCard key={job._id} job={job}></JobCard>
+            ))}
+        </div>
       </TabPanel>
       <TabPanel>
-        <h2>Any content 3</h2>
+        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {jobs
+            .filter((j) => j.job_category === "Hybrid")
+            .map((job) => (
+              <JobCard key={job._id} job={job}></JobCard>
+            ))}
+        </div>
       </TabPanel>
       <TabPanel>
-        <h2>Any content 4</h2>
+        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {jobs
+            .filter((j) => j.job_category === "Part-Time")
+            .map((job) => (
+              <JobCard key={job._id} job={job}></JobCard>
+            ))}
+        </div>
       </TabPanel>
     </Tabs>
   );
