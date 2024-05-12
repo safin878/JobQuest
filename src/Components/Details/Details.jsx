@@ -70,7 +70,7 @@ const Details = () => {
     Swal.fire({
       title: "Applied Job",
       html:
-        `<input id="name" class="swal2-input" placeholder="Username" value="${user?.displayName}">` +
+        `<input id="name" class="swal2-input" placeholder="Username" value="${user?.displayName} ">` +
         `<input id="email" class="swal2-input" placeholder="Email" value="${user?.email}">` +
         '<input id="link" class="swal2-input" placeholder="Resume Link">',
       inputAttributes: {
