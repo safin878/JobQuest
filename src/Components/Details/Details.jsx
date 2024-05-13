@@ -12,8 +12,8 @@ const Details = () => {
   const job = useLoaderData();
   const navigate = useNavigate();
   const {
+    _id,
     job_title,
-
     job_category,
     salary_range,
     buyer,
@@ -88,6 +88,7 @@ const Details = () => {
         document.getElementById("email").disabled = true;
 
         const AppliedData = {
+          JobId: _id,
           name,
           email,
           link,

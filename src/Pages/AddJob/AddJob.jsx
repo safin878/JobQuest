@@ -23,6 +23,7 @@ const AddJob = () => {
     const salary_range = form.salary_range.value;
     const picture_url = form.picture_url.value;
     const job_description = form.job_description.value;
+    const job_applicants = 0;
     const jobData = {
       picture_url,
       job_title,
@@ -31,6 +32,7 @@ const AddJob = () => {
       job_category,
       salary_range,
       job_description,
+      job_applicants,
       buyer: {
         email,
         name: user?.displayName,

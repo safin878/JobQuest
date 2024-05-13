@@ -33,7 +33,8 @@ const JobCard = ({ job }) => {
         </p>
 
         <p className="mt-2 text-sm font-normal text-gray-600 ">
-          Application Deadline: {application_deadline}
+          Application Deadline:{" "}
+          {new Date(application_deadline).toLocaleDateString()}
         </p>
         <p className="mt-2 text-sm font-normal text-gray-600 ">
           Applicants: {job_applicants}
