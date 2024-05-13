@@ -70,8 +70,8 @@ const Details = () => {
     Swal.fire({
       title: "Applied Job",
       html:
-        `<input id="name" class="swal2-input" placeholder="Username" value="${user?.displayName} ">` +
-        `<input id="email" class="swal2-input" placeholder="Email" value="${user?.email}">` +
+        `<input id="name" class="swal2-input" placeholder="Username" value="${user?.displayName} " disabled>` +
+        `<input id="email" class="swal2-input" placeholder="Email" value="${user?.email}" disabled>` +
         '<input id="link" class="swal2-input" placeholder="Resume Link">',
       inputAttributes: {
         autocapitalize: "off",
@@ -83,6 +83,9 @@ const Details = () => {
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const link = document.getElementById("link").value;
+
+        document.getElementById("name").disabled = true;
+        document.getElementById("email").disabled = true;
 
         const AppliedData = {
           name,

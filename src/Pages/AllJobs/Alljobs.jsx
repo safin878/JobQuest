@@ -6,50 +6,46 @@ import { Link } from "react-router-dom";
 const Alljobs = () => {
   const { user } = useContext(AuthContext);
   const [Jobs, setJobs] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/SearchJobs?search=${search} `
+      );
+      setJobs(data);
+    };
     getData();
-  }, [user]);
+  }, [user, search]);
 
-  const getData = async () => {
-    const { data } = await axios(`${import.meta.env.VITE_API_URL}/AddJobs`);
-    setJobs(data);
+  const handelSearch = (e) => {
+    e.preventDefault();
+    const text = e.target.search.value;
+    setSearch(text);
   };
-
-  // const handelDelete = async (id) => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!",
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Deleted!",
-  //         text: " Deleted Successfully",
-  //         icon: "success",
-  //       });
-
-  //       try {
-  //         const { data } = await axios.delete(
-  //           `${import.meta.env.VITE_API_URL}/MyJobId/${id}`
-  //         );import Details from './../../Components/Details/Details';
-
-  //         console.log(data);
-
-  //         getData();
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   });
-  // };
-
+  console.log(search);
   return (
     <div className="overflow-x-auto">
+      <div>
+        <div className="join my-3 flex container mx-auto">
+          <form onSubmit={handelSearch} className="join my-3 flex">
+            <div>
+              <div>
+                <input
+                  className="input input-bordered join-item"
+                  type="text"
+                  name="search"
+                  placeholder="Search"
+                />
+              </div>
+            </div>
+            <div className="indicator">
+              <button className="btn join-item">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <table className="table">
         {/* head */}
         <thead>
