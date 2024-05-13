@@ -7,6 +7,7 @@ const Alljobs = () => {
   const { user } = useContext(AuthContext);
   const [Jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -20,8 +21,8 @@ const Alljobs = () => {
 
   const handelSearch = (e) => {
     e.preventDefault();
-    const text = e.target.search.value;
-    setSearch(text);
+    // const text = e.target.search.value;
+    setSearch(searchText);
   };
   console.log(search);
   return (
@@ -33,6 +34,8 @@ const Alljobs = () => {
               <div>
                 <input
                   className="input input-bordered join-item"
+                  onChange={(e) => setSearchText(e.target.value)}
+                  value={searchText}
                   type="text"
                   name="search"
                   placeholder="Search"
