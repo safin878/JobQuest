@@ -23,49 +23,6 @@ const Details = () => {
     job_applicants,
   } = job || {};
 
-  // const handelOpen = () => {
-  //   Swal.fire({
-  //     title: "Applied Job",
-  //     // input: "text",
-  //     html:
-  //       `<input id="name" class="swal2-input" placeholder="Username" value=${user?.displayName}>` +
-  //       `<input id="email" class="swal2-input" placeholder="Another Input" value=${user?.email}>` +
-  //       '<input id="Link" class="swal2-input" placeholder="Resume Link">',
-  //     inputAttributes: {
-  //       autocapitalize: "off",
-  //     },
-  //     showCancelButton: true,
-  //     confirmButtonText: "Submit",
-  //     showLoaderOnConfirm: true,
-  //     preConfirm: async (login) => {
-  //       try {
-  //         const githubUrl = `
-  //           https://api.github.com/users/${login}
-  //         `;
-  //         const response = await fetch(githubUrl);
-  //         if (!response.ok) {
-  //           return Swal.showValidationMessage(`
-  //             ${JSON.stringify(await response.json())}
-  //           `);
-  //         }
-  //         return response.json();
-  //       } catch (error) {
-  //         Swal.showValidationMessage(`
-  //           Request failed: ${error}
-  //         `);
-  //       }
-  //     },
-  //     allowOutsideClick: () => !Swal.isLoading(),
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: `${result.value.login}'s avatar`,
-  //         imageUrl: result.value.avatar_url,
-  //       });
-  //     }
-  //   });
-  // };
-
   const handelOpen = () => {
     Swal.fire({
       title: "Applied Job",
@@ -86,9 +43,18 @@ const Details = () => {
 
         document.getElementById("name").disabled = true;
         document.getElementById("email").disabled = true;
+        if (user?.email === buyer?.email) {
+          toast.error("Action not permitted");
+          return;
+        }
 
         const AppliedData = {
           JobId: _id,
+          picture_url,
+          application_deadline,
+          job_category,
+          job_title,
+          salary_range,
           name,
           email,
           link,
@@ -106,6 +72,7 @@ const Details = () => {
             AppliedData
           );
           console.log(data);
+
           if (data.acknowledged) {
             toast.success("Applied Successfully");
             navigate("/AppliedJobs");
@@ -121,6 +88,9 @@ const Details = () => {
       if (result.isConfirmed) {
         // You can access the submitted data here
         const { name, email, link } = result.value;
+        if (user?.email === buyer?.email) {
+          return;
+        }
         // For now, just showing the data
         Swal.fire({
           title: "Submitted Data",

@@ -11,7 +11,9 @@ const Home = () => {
 
       <h1 className="text-6xl font-bold my-6">How To Get Start</h1>
 
-      <Extra1></Extra1>
+      <div className="grid grid-cols-3 gap-10 container mx-auto">
+        <Extra1></Extra1>
+      </div>
     </div>
   );
 };
