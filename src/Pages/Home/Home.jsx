@@ -1,5 +1,6 @@
 import Banner from "../../Components/Banner/Banner";
 import Extra1 from "../../Components/Extra1/Extra1";
+import Extra2 from "../../Components/Extra2/Extra2";
 import JobCatagory from "../../Components/JobCatagory/JobCatagory";
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
       <div className="grid grid-cols-3 gap-10 container mx-auto">
         <Extra1></Extra1>
       </div>
+      <Extra2></Extra2>
     </div>
   );
 };
