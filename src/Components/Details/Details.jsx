@@ -71,7 +71,7 @@ const Details = () => {
             `${import.meta.env.VITE_API_URL}/AppliedJobs`,
             AppliedData
           );
-          console.log(data);
+          // console.log(data);
 
           if (data.acknowledged) {
             toast.success("Applied Successfully");

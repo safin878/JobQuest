@@ -15,7 +15,8 @@ const MyJobs = () => {
 
   const getData = async () => {
     const { data } = await axios(
-      `${import.meta.env.VITE_API_URL}/MyJob/${user?.email}`
+      `${import.meta.env.VITE_API_URL}/MyJob/${user?.email}`,
+      { withCredentials: true }
     );
     setJobs(data);
   };
@@ -41,7 +42,7 @@ const MyJobs = () => {
           const { data } = await axios.delete(
             `${import.meta.env.VITE_API_URL}/MyJobId/${id}`
           );
-          console.log(data);
+          // console.log(data);
 
           getData();
         } catch (error) {

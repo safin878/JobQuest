@@ -2,7 +2,6 @@ import { useContext } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import regImg from "../../assets/Regisration.jpg";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const UserProfile = () => {
@@ -19,7 +18,7 @@ const UserProfile = () => {
     const photo = form.photo.value;
     const email = form.email.value;
 
-    console.log([name, photo, email]);
+    // console.log([name, photo, email]);
     try {
       if (user) {
         updateUserProfile(name, photo);

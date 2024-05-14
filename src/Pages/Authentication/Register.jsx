@@ -4,9 +4,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import regImg from "../../assets/Regisration.jpg";
 import { AuthContext } from "../../Provider/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
-  const { signInWithGoogle, loading, updateUserProfile, setUser, createUser } =
+  const { signInWithGoogle, updateUserProfile, setUser, createUser } =
     useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.pathname || "/";
@@ -15,15 +16,16 @@ const Register = () => {
   const handelGoogle = async () => {
     try {
       const result = await signInWithGoogle();
-      // const { data } = await axios.post(
-      //   "http://localhost:9000/jwt",
-      //   {
-      //     email: result?.user?.email,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(data);
       if (result.user) {
         Swal.fire({
           title: "Register Successful !",
@@ -47,18 +49,19 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log([name, photo, email, password]);
+    // console.log([name, photo, email, password]);
     try {
       const result = await createUser(email, password);
-      // const { data } = await axios.post(
-      //   "http://localhost:9000/jwt",
-      //   {
-      //     email: result?.user?.email,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(data);
 
       if (result.user) {
         updateUserProfile(name, photo);

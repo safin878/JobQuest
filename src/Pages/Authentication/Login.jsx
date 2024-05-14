@@ -4,9 +4,10 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import loginImg from "../../assets/loginImg.jpg";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Login = () => {
-  const { signIn, signInWithGoogle, loading } = useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state?.pathname || "/";
   const navigate = useNavigate();
@@ -14,15 +15,16 @@ const Login = () => {
   const handelGoogle = async () => {
     try {
       const result = await signInWithGoogle();
-      // const { data } = await axios.post(
-      //   "http://localhost:9000/jwt",
-      //   {
-      //     email: result?.user?.email,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(data);
       if (result.user) {
         Swal.fire({
           title: "Login Successful !",
@@ -44,19 +46,19 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    // console.log(email, password);
     try {
       const result = await signIn(email, password);
-      // const { data } = await axios.post(
-      //   "http://localhost:9000/jwt",
-      //   {
-      //     email: result?.user?.email,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
-      // console.log(data);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(data);
       if (result.user) {
         Swal.fire({
           title: "Login Successful !",
