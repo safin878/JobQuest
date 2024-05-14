@@ -43,11 +43,14 @@ const UserProfile = () => {
             User Profile
           </h2>
           <div className="bg-gray-100  rounded-2xl shadow-lg max-w-3xl p-4 flex flex-col items-center">
-            <div className="md:block hidden w-1/2 ">
-              <img className="rounded-2xl" src={user?.photoURL} />
+            <div className="md:block container  w-1/2  flex items-center">
+              <img
+                className="rounded-2xl  container mx-auto"
+                src={user?.photoURL}
+              />
             </div>
 
-            <div className="md:w-1/2 px-8 md:px-16 p-4 -my-6">
+            <div className="md:w-full px-8 md:px-16 p-4 -my-6">
               <form
                 onSubmit={handelReg}
                 action=""

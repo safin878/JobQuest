@@ -43,7 +43,7 @@ const Update = () => {
         `${import.meta.env.VITE_API_URL}/MyJobId/${job._id}`,
         jobData
       );
-      console.log(data);
+      // console.log(data);
       toast.success("Job Updated Successfully!");
       navigate("/MyJobs");
     } catch (err) {

@@ -4,7 +4,11 @@ const Extra1 = () => {
   return (
     <>
       <div className="border hover:bg-[#6060d815] border-color-3 rounded-md p-6 my-10 space-y-5 hover:scale-105 transition">
-        <img className="mx-auto" src="../../../public/icon/icon-1.png" alt="" />
+        <img
+          className="mx-auto"
+          src="https://i.postimg.cc/kG80Vvyx/icon-1.png"
+          alt=""
+        />
         <h1 className="text-2xl font-semibold">Need Any Jobs?</h1>
         <p>
           Looking for the next step in your career? Explore exciting job
@@ -17,7 +21,11 @@ const Extra1 = () => {
         </button>
       </div>
       <div className="border hover:bg-[#6060d815] border-color-3 rounded-md p-6 my-10 space-y-5 hover:scale-105 transition">
-        <img className="mx-auto" src="../../../public/icon/icon-2.png" alt="" />
+        <img
+          className="mx-auto"
+          src=" https://i.postimg.cc/pr2f82fq/icon-2.png"
+          alt=""
+        />
         <h1 className="text-2xl font-semibold">Post Your Jobs</h1>
         <p>
           Discover your next career move with our diverse range of job postings.
@@ -30,7 +38,11 @@ const Extra1 = () => {
         </button>
       </div>
       <div className="border hover:bg-[#6060d815] border-color-3 rounded-md p-6 my-10 space-y-5 hover:scale-105 transition">
-        <img className="mx-auto" src="../../../public/icon/icon-3.png" alt="" />
+        <img
+          className="mx-auto"
+          src="https://i.postimg.cc/pVhhG5Tz/icon-3.png"
+          alt=""
+        />
         <h1 className="text-2xl font-semibold">Job Market Data</h1>
         <p>
           Stay ahead of the curve with insightful job market data. Gain valuable

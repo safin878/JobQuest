@@ -58,6 +58,15 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/AppliedJobs",
+        element: (
+          <PrivateRoute>
+            <AppliedJobs></AppliedJobs>
+          </PrivateRoute>
+        ),
+      },
+
+      {
         path: "/addJob/:id",
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/AddJobs/${params.id}`),
@@ -75,14 +84,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/AppliedJobs",
-        element: (
-          <PrivateRoute>
-            <AppliedJobs></AppliedJobs>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/UserProfile",
         element: (

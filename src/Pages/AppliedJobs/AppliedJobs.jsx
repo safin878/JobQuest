@@ -5,6 +5,7 @@ import axios from "axios";
 import { FaDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import toast from "react-hot-toast";
+
 // import toast from "react-hot-toast";
 // import generatePDF from "react-to-pdf";
 const AppliedJobs = () => {
@@ -16,7 +17,9 @@ const AppliedJobs = () => {
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(
-        `${import.meta.env.VITE_API_URL}/AppliedJobs?filter=${filter} `
+        `${import.meta.env.VITE_API_URL}/AppliedJobs?filter=${filter}&user=${
+          user?.email
+        }`
       );
       setJobs(data);
     };

@@ -24,7 +24,7 @@ const Alljobs = () => {
     // const text = e.target.search.value;
     setSearch(searchText);
   };
-  console.log(search);
+  // console.log(search);
   return (
     <div className="overflow-x-auto">
       <div>
