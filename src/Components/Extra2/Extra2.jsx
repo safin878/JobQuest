@@ -69,7 +69,7 @@ const Extra2 = () => {
             />
           </div>
           <h2 className="mt-2 text-xl font-semibold text-color-2 md:mt-0">
-            Web Developer
+            Software Engineer
           </h2>
           <p className="mt-2 text-sm ">
             Skilled software engineer proficient in diverse coding languages,

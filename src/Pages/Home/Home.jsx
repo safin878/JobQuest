@@ -2,10 +2,11 @@ import Banner from "../../Components/Banner/Banner";
 import Extra1 from "../../Components/Extra1/Extra1";
 import Extra2 from "../../Components/Extra2/Extra2";
 import JobCatagory from "../../Components/JobCatagory/JobCatagory";
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
-    <div className="text-center">
+    <motion.div className="  text-center ">
       <Banner></Banner>
       <h1 className="text-6xl font-bold my-6">Job by Category</h1>
       <JobCatagory></JobCatagory>
@@ -16,7 +17,7 @@ const Home = () => {
         <Extra1></Extra1>
       </div>
       <Extra2></Extra2>
-    </div>
+    </motion.div>
   );
 };
 

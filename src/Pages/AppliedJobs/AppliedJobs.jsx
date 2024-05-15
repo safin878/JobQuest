@@ -19,7 +19,8 @@ const AppliedJobs = () => {
       const { data } = await axios(
         `${import.meta.env.VITE_API_URL}/AppliedJobs?filter=${filter}&user=${
           user?.email
-        }`
+        }`,
+        { withCredentials: true }
       );
       setJobs(data);
     };
@@ -89,7 +90,7 @@ const AppliedJobs = () => {
                 </td>
                 <td>
                   {" "}
-                  s{new Date(Job.application_deadline).toLocaleDateString()}
+                  {new Date(Job.application_deadline).toLocaleDateString()}
                 </td>
                 <th>
                   <p>{Job.salary_range}</p>
