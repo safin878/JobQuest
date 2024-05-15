@@ -6,13 +6,13 @@ import { FaDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import toast from "react-hot-toast";
 
-// import toast from "react-hot-toast";
-// import generatePDF from "react-to-pdf";
 const AppliedJobs = () => {
   const { user } = useContext(AuthContext);
   const [Jobs, setJobs] = useState([]);
   const [filter, setFilter] = useState("");
   const compPdf = useRef();
+  const [printStarted, setPrintStarted] = useState(false);
+  const [printCompleted, setPrintCompleted] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -27,11 +27,33 @@ const AppliedJobs = () => {
     getData();
   }, [user, filter]);
 
-  const generatePDF = useReactToPrint({
+  const handlePrint = useReactToPrint({
     content: () => compPdf.current,
     documentTitle: "userData",
-    onAfterPrint: () => toast.success("PDF Downloaded SuccessFully"),
+    onBeforePrint: () => {
+      setPrintStarted(true);
+      setPrintCompleted(false);
+    },
+    onAfterPrint: () => {
+      if (printStarted) {
+        setPrintCompleted(true);
+        toast.success("PDF Downloaded Successfully");
+      }
+    },
+    onPrintError: () => {
+      setPrintStarted(false);
+    },
   });
+
+  useEffect(() => {
+    let timeout;
+    if (printStarted && !printCompleted) {
+      timeout = setTimeout(() => {
+        setPrintStarted(false); // Reset printStarted after a reasonable amount of time
+      }, 5000); // Assume the print dialog interaction time to be 5 seconds
+    }
+    return () => clearTimeout(timeout);
+  }, [printStarted, printCompleted]);
 
   return (
     <div className="overflow-x-auto">
@@ -64,8 +86,6 @@ const AppliedJobs = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-
             {Jobs.map((Job) => (
               <tr key={Job._id}>
                 <th></th>
@@ -89,7 +109,6 @@ const AppliedJobs = () => {
                   <br />
                 </td>
                 <td>
-                  {" "}
                   {new Date(Job.application_deadline).toLocaleDateString()}
                 </td>
                 <th>
@@ -101,7 +120,7 @@ const AppliedJobs = () => {
         </table>
         <div className=" flex justify-center my-4">
           <button
-            onClick={generatePDF}
+            onClick={handlePrint}
             className="btn btn-ghost btn-xs text-[15px] flex items-center justify-center "
           >
             <FaDownload />
