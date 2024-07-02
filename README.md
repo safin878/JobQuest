@@ -1,6 +1,6 @@
 Hey everyone! I’m thrilled to share the launch of my newest website, a testament to modern web development and design. This project has been a labor of love, combining the best of frontend and backend technologies to create a seamless user experience.
 
->>Project Link: https://jobquest-c5a28.web.app/
+>>Project Link: https://jobquest-c5a28.web.app
 
 What’s Inside:
 >>Frontend Elegance: Crafted with HTML, CSS, and React.js, the site boasts a sleek, responsive design. Tailwind CSS adds that extra flair, ensuring a stylish yet functional interface.
